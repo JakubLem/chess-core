@@ -1,0 +1,5 @@
+venv/
+__pycache__/
+db_config.json
+db.sqlite3
+.env
