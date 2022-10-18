@@ -6,7 +6,7 @@ from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from auth import serializers, models  # noqa:E0401 
+from authorization import serializers, models  # noqa:E0401 
 
 
 class UserViewSet(ModelViewSet):  # noqa:R0901
@@ -26,7 +26,6 @@ class UserViewSet(ModelViewSet):  # noqa:R0901
         detail=False, url_path="login", methods=["post"], permission_classes=[]
     )
     def login(self, request):
-        #  self.validate(request) # TODO: create serializer
         email = request.data['email']
         password = request.data['password']  # noqa:W0612 TODO
         user = models.User.objects.filter(email=email).first()

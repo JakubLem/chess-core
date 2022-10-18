@@ -1,5 +1,5 @@
 import pytest
-from authorization import models, utils
+from authorization import models
 
 @pytest.mark.django_db
 class TestUsers:
@@ -8,14 +8,13 @@ class TestUsers:
         assert models.User.objects.count() == 0
         c = client()
         response = c.post("/auth/users/", {
-            "firstName": "test_name",
-            "lastName": "some_surname",
+            "name": "test_name",
+            "surname": "some_surname",
             "username": "some_username",
             "email": "test@mail.pl",
             "password": "password1234"
         })
         assert response.status_code == 201
-        assert response.json()["uid"]
         assert response.json()["identifier"]
         assert models.User.objects.count() == 1
         # test invalid password
