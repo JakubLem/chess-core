@@ -33,6 +33,9 @@ class UserViewSet(ModelViewSet):  # noqa:R0901
         if user is None:
             raise AuthenticationFailed('User not found!')
 
+        if password != user.password:
+            raise AuthenticationFailed('Incorrect password!')
+
         #  TODO
         #  if not user.check_password(password):
         #      raise AuthenticationFailed('Incorrect password!')
@@ -48,7 +51,8 @@ class UserViewSet(ModelViewSet):  # noqa:R0901
 
         response.set_cookie(key='jwt', value=token, httponly=True)
         response.data = {
-            'jwt': token
+            'jwt': token,
+            'user': user.json()
         }
         return response
 

@@ -19,24 +19,24 @@ class TestUsers:
         assert models.User.objects.count() == 1
         # test invalid password
         response = c.post("/auth/users/login/", {
-            "username": "some_username",
+            "email": "test@mail.pl",
             "password": "invalid password"
         })
-        assert response.status_code == 400
-        assert response.json() == {
-            "error": "invalid_grant",
-            "error_description": "Invalid user credentials"
-        }
+        assert response.status_code == 403
+        # assert response.json() == {
+        #     "error": "invalid_grant",
+        #     "error_description": "Invalid user credentials"
+        # }
+        assert response.json() == {'detail': 'Incorrect password!'} 
         assert "jwt" not in response.cookies
         # test valid password
         response = c.post("/auth/users/login/", {
-            "username": "some_username",
+            "email": "test@mail.pl",
             "password": "password1234"
         })
         # assert response.status_code == 200
         assert response.json()["jwt"]
         assert response.json()["user"]
-        assert response.json()["user"]["uid"]
         assert response.json()["user"]["identifier"]
         assert response.json()["user"]["username"]
         assert "jwt" in response.cookies
@@ -52,8 +52,8 @@ class TestUsers:
     def test_register_strip(self, client):
         c = client()
         response = c.post("/auth/users/", {
-            "firstName": "       test_name_2    ",
-            "lastName": "      some_surname     ",
+            "name": "       test_name_2    ",
+            "surname": "      some_surname     ",
             "username": "        some_username__2      ",
             "email": "       test2@mail.pl       ",
             "password": "password21234"
