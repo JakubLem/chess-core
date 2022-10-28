@@ -13,7 +13,7 @@ application = socketio.WSGIApp(sio, dj_application)
 from gevent import pywsgi
 from geventwebsocket.handler import WebSocketHandler
 
-server = pywsgi.WSGIServer(("", 8000), application, handler_class=WebSocketHandler)
+server = pywsgi.WSGIServer(("", int(os.environ["PORT"])), application, handler_class=WebSocketHandler)
 server.serve_forever()
 
 
