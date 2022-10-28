@@ -10,8 +10,6 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'main.settings')
 dj_application  = get_wsgi_application()
 application = socketio.WSGIApp(sio, dj_application)
 
-####################################################################################
-
 from gevent import pywsgi
 from geventwebsocket.handler import WebSocketHandler
 
