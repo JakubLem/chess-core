@@ -3,7 +3,10 @@ import socketio
 
 async_mode = 'gevent'
 basedir = os.path.dirname(os.path.realpath(__file__))
-sio = socketio.Server(async_mode=async_mode)
+sio = socketio.Server(
+    async_mode=async_mode,
+    cors_allowed_origins='*'
+)
 
 
 users = {}
