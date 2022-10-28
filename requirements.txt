@@ -18,3 +18,16 @@ django-cors-headers==3.11.0
 # jose | jwt
 python-jose[cryptography]==3.1.0
 PyJWT==2.5.0
+
+# socket io
+dnspython
+enum-compat
+eventlet
+gevent
+gevent-websocket
+greenlet
+python-engineio
+python-socketio
+pytz
+six
+sqlparse
