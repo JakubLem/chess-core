@@ -22,13 +22,10 @@ class TestUsers:
             "email": "test@mail.pl",
             "password": "invalid password"
         })
-        assert response.status_code == 403
-        # assert response.json() == {
-        #     "error": "invalid_grant",
-        #     "error_description": "Invalid user credentials"
-        # }
-        assert response.json() == {'detail': 'Incorrect password!'} 
+        assert response.status_code == 401
+        assert response.json() == {'detail': 'Invalid password!'} 
         assert "jwt" not in response.cookies
+
         # test valid password
         response = c.post("/auth/users/login/", {
             "email": "test@mail.pl",

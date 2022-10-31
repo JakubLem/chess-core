@@ -6,7 +6,7 @@ from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from authorization import serializers, models  # noqa:E0401 
+from authorization import serializers, models, exceptions  # noqa:E0401 
 
 
 class UserViewSet(ModelViewSet):  # noqa:R0901
@@ -23,7 +23,7 @@ class UserViewSet(ModelViewSet):  # noqa:R0901
         return Response(serializer.data, status=201)
 
     @action(
-        detail=False, url_path="login", methods=["post"], permission_classes=[]
+        detail=False, url_path="login", methods=["post"]
     )
     def login(self, request):
         email = request.data['email']
@@ -31,14 +31,14 @@ class UserViewSet(ModelViewSet):  # noqa:R0901
         user = models.User.objects.filter(email=email).first()
 
         if user is None:
-            raise AuthenticationFailed('User not found!')
+            raise exceptions.AuthFailed(detail="Invalid user!")
 
         if password != user.password:
-            raise AuthenticationFailed('Incorrect password!')
+            raise exceptions.AuthFailed(detail="Invalid password!")
 
         #  TODO
         #  if not user.check_password(password):
-        #      raise AuthenticationFailed('Incorrect password!')
+        #      raise NotAuthenticated('Incorrect password!')
 
         payload = {
             'identifier': user.identifier,
