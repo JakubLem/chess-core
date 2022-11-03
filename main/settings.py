@@ -81,8 +81,8 @@ WSGI_APPLICATION = 'main.wsgi.application'
 ASGI_APPLICATION = 'main.routing.application'
 CHANNEL_LAYERS = {
     'default': {
-        'BACKEND': 'channels.layers.InMemoryChannelLayer',
-    },
+        'BACKEND': "channels.layers.InMemoryChannelLayer"
+    }
 }
 
 # Database
