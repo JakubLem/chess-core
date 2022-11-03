@@ -20,4 +20,5 @@ python-jose[cryptography]==3.1.0
 PyJWT==2.5.0
 
 # channels
+channels
 daphne==4.0.0
