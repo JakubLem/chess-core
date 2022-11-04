@@ -29,6 +29,12 @@ DEBUG = True
 ALLOWED_HOSTS = ["127.0.0.1", "lemis-chess-core.herokuapp.com"]
 
 
+# Authorization
+AUTH_NAME = "Authorization"
+AUTH_PREFIX = "Bearer"
+SUB_KEY = "sub"
+EXP_KEY = "exp"
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -113,6 +119,23 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+PASSWORD_HASHERS = [
+  'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+  'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+  'django.contrib.auth.hashers.Argon2PasswordHasher',
+  'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+  'django.contrib.auth.hashers.BCryptPasswordHasher',
+  'django.contrib.auth.hashers.SHA1PasswordHasher',
+  'django.contrib.auth.hashers.MD5PasswordHasher',
+  'django.contrib.auth.hashers.UnsaltedSHA1PasswordHasher',
+  'django.contrib.auth.hashers.UnsaltedMD5PasswordHasher',
+  'django.contrib.auth.hashers.CryptPasswordHasher',
+]
+
+
+PASSWORD_HASH_KEY = "abcd"
+PASSWORD_HASH_ALG = "md5"
 
 
 # Internationalization

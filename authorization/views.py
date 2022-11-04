@@ -1,5 +1,6 @@
 import datetime
 from django.core.exceptions import ValidationError
+from django.contrib.auth.hashers import check_password
 
 import jwt
 from rest_framework.exceptions import AuthenticationFailed
@@ -31,14 +32,11 @@ class UserViewSet(ModelViewSet):  # noqa:R0901
         user = models.User.objects.filter(email=email).first()
 
         if user is None:
-            raise exceptions.AuthFailed(detail="Invalid user!")
+            raise exceptions.UnauthenticatedException(detail="Invalid user!")
 
-        if password != user.password:
-            raise exceptions.AuthFailed(detail="Invalid password!")
-
-        #  TODO
-        #  if not user.check_password(password):
-        #      raise NotAuthenticated('Incorrect password!')
+        hashed_password = user.password
+        if not check_password(password, hashed_password):
+            raise exceptions.UnauthenticatedException(detail="Invalid password!")
 
         payload = {
             'identifier': user.identifier,
