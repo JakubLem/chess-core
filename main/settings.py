@@ -127,6 +127,10 @@ PASSWORD_HASHERS = [
 ]
 
 
+PASSWORD_HASH_KEY = "abcd"
+PASSWORD_HASH_ALG = "md5"
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
