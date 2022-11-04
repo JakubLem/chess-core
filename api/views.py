@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from rest_framework.response import Response
 
-# Create your views here.
+
+def room(request, room_name):
+    return Response({
+        'room_name': room_name
+    })
