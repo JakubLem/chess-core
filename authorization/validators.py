@@ -31,3 +31,29 @@ def validate_authorization_header(header):
 
     if splited[0] != settings.AUTH_PREFIX:
         raise UnauthenticatedException("Invalid header")
+
+
+def validate_password(password):
+    special_chars =['$', '!', '@', '#', '%', '&']
+    validated = True
+    msg = ' '
+
+    if len(password) < 8:
+        msg = 'Password length must be at least 8'
+        validated = False
+    elif len(password) > 18:
+        msg = 'Password length must not be greater than 18'
+        validated = False
+    elif not any(char.isdigit() for char in password):
+        msg = 'Password should have at least one number'
+        validated = False
+    elif not any(char.isupper() for char in password):
+        msg = 'Password should have at least one uppercase letter'
+        validated = False
+    elif not any(char.islower() for char in password):
+        msg = 'Password should have at least one lowercase letter'
+        validated = False
+    elif not any(char in special_chars for char in password):
+        msg = 'Password should have at least one special character'
+        validated = False
+    return { 'is_valid': validated, 'message': msg }
