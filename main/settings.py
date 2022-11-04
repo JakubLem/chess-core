@@ -29,6 +29,12 @@ DEBUG = True
 ALLOWED_HOSTS = ["127.0.0.1", "lemis-chess-core.herokuapp.com"]
 
 
+# Authorization
+AUTH_NAME = "Authorization"
+AUTH_PREFIX = "Bearer"
+SUB_KEY = "sub"
+EXP_KEY = "exp"
+
 # Application definition
 
 INSTALLED_APPS = [
